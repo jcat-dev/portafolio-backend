@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { ContactForm } from '../types/ContactForm'
-import { internalServerErrorResponse, noContentResponse } from './response'
+import { internalServerErrorResponse, noContentResponse } from '../utils/response'
 import nodemailer from 'nodemailer'
 
 const postEmail = async (req: Request, res: Response) => {
@@ -28,7 +28,7 @@ const postEmail = async (req: Request, res: Response) => {
       text: `${text} ${email}`, 
     })
 
-    res.status(noContentResponse.status).json({msg: noContentResponse.msg})
+    res.status(noContentResponse).send()
   } catch (error) {
     res.status(internalServerErrorResponse.status).json({msg: internalServerErrorResponse.msg})
   }

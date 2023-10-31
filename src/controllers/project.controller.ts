@@ -7,7 +7,7 @@ export const getProjects = async (res: Response) => {
 }
 
 export const postProject = (req: Request, res: Response) => {
-  return addData(ProjectModel, req.body, res)
+  return addData(req.body, ProjectModel, res)
 }
 
 export const deleteProjectById = (req: Request, res: Response) => {

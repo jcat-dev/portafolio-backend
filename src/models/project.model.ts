@@ -19,7 +19,7 @@ const projectSchema = new Schema({
       required: true
     }
   }],
-  repositoryUrl: {
+  repositoryURL: {
     type: String,
     required: true
   },
@@ -27,7 +27,7 @@ const projectSchema = new Schema({
     type: String,
     required: true
   },
-  pageImgUrl: {
+  pageImgURL: {
     type: String,
     required: true
   },

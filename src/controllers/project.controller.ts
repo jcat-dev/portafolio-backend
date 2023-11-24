@@ -1,9 +1,15 @@
 import { Request, Response } from 'express'
 import { ProjectModel } from '../models/project.model'
-import { createData, findData, updateDataById, deleteDataById } from './crud.controller'
+import { createData, findData, updateDataById, deleteDataById, findDataById } from './crud.controller'
 
 export const getProjects = async (res: Response) => {
   return findData(ProjectModel, res)
+}
+
+export const getProjectById = async (req: Request, res: Response) => {
+  const { id } = req.params
+
+  return findDataById(id, ProjectModel, res)
 }
 
 export const postProject = (req: Request, res: Response) => {

@@ -2,7 +2,7 @@ import { Response } from 'express'
 import { createdResponse, internalServerErrorResponse, noContentResponse, notFoundResponse, okResponse } from '../utils/response'
 import { Model } from 'mongoose'
 
-export const addData = async <T>(data: object, model: Model<T>, res: Response) => {
+export const createData = async <T>(data: object, model: Model<T>, res: Response) => {
   try {
     await model.create(data)
 

@@ -26,6 +26,16 @@ export const findData = async <T>(model: Model<T>, res: Response) => {
   }
 }
 
+export const findDataById = async <T>(id: string, model: Model<T>, res: Response) => {
+  try {
+    const data = await model.findById(id).exec()
+
+    res.status(okResponse.status).json({msg: okResponse.msg, data})
+  } catch (error) {
+    res.status(internalServerErrorResponse.status).json({msg: internalServerErrorResponse.msg})
+  }
+}
+
 export const deleteDataById = async <T>(id: string, model: Model<T>, res: Response) => {
   try {
     await model.findByIdAndDelete(id)

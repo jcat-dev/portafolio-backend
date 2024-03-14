@@ -1,6 +1,6 @@
 import { Request, Response } from 'express'
 import { ContactForm } from '../types/ContactForm'
-import { internalServerErrorResponse, noContentResponse } from '../utils/response'
+import { serverErrorResponse } from '../utils/httpResponse'
 import nodemailer from 'nodemailer'
 
 const postEmail = async (req: Request, res: Response) => {
@@ -22,15 +22,21 @@ const postEmail = async (req: Request, res: Response) => {
     })
 
     await transporter.sendMail({
-      from: `${name} ${email}`,
-      to: process.env.EMAIL_USER,
+      from: `${name} ${process.env.EMAIL_USER}`,
+      to: process.env.EMAIL_USER2,
       subject: 'Nuevo correo del portafolio', 
-      text: `${text} ${email}`, 
+      html: `
+        <b>${name}</b>
+        <p>${text}</p>
+        ${email}
+      `,
     })
 
-    res.status(noContentResponse).send()
+    res.statusMessage = 'Mensaje enviado exitosamente'
+    res.status(204).send()
   } catch (error) {
-    res.status(internalServerErrorResponse.status).json({msg: internalServerErrorResponse.msg})
+    res.statusMessage = serverErrorResponse.msg
+    res.status(serverErrorResponse.status).send()
   }
 }
 

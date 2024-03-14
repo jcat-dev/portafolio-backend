@@ -1,9 +1,13 @@
 import { Request, Response } from 'express'
 import { SkillModel } from '../models/skill.model'
-import { createData, deleteDataById, findData, updateDataById} from './crud.controller'
+import { createData, deleteDataById, findData, findDataById, updateDataById} from './crud.controller'
 
 export const getSkills = (res: Response) => {
   return findData(SkillModel, res)
+}
+
+export const getSkillByID = (req: Request, res: Response) => {
+  return findDataById(req.params.id, SkillModel, res)
 }
 
 export const postSkill = (req: Request, res: Response) => {

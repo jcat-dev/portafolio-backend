@@ -13,7 +13,7 @@ const app = express()
 app.use(cors({
   methods: [ 'GET', 'POST', 'PUT', 'DELETE'],
   origin: process.env.ORIGIN,
-  allowedHeaders: [ 'Content-Type' ]
+  allowedHeaders: [ 'Content-Type', 'Authorization']
 }))
 
 app.use(express.json())

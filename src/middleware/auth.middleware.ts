@@ -1,13 +1,13 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
+import { failureAuthResponse } from '../utils/httpResponse'
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers['authorization']
     
     if (!token) {
-      res.statusMessage = 'Token invalido'
-      res.status(401).send()
+      res.status(failureAuthResponse.status).send()
       return
     }
 
@@ -18,6 +18,6 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
       res.statusMessage = error.message
     }
 
-    res.status(401).send()
+    res.status(failureAuthResponse.status).send()
   }
 } 

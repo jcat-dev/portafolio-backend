@@ -7,13 +7,20 @@ const setResponse = (status: number, msg: string) => {
   }
 }
 
+//http method msg
 export const successResponse: Response = setResponse(200, 'Solicitud exitosa')
-export const createdResponse: Response = setResponse(201, 'El recurso se ha creado exitosamente')
+export const createdResponse: Response = setResponse(201, 'Recurso creado exitosamente')
 export const updatedResponse: Response = setResponse(204, 'Actualización exitosa')
 export const deletedResponse: Response = setResponse(204, 'Eliminación exitosa')
+export const idErrorResponse: Response = setResponse(400, 'Error 400. ID incorrecta')
+export const idNotFoundResponse: Response = setResponse(400, 'Error 400. ID no encontrado')
 
-export const notFoundResponse: Response = setResponse(404,'404 El recurso no fue encontrado' ) 
-export const serverErrorResponse: Response = setResponse(500, '500 Oops, algo salió mal. Por favor, inténtalo de nuevo') 
+//error msg
+export const notFoundResponse: Response = setResponse(404,'Error 404. Recurso no encontrado') 
+export const serverErrorResponse: Response = setResponse(500, 'Error 500. Por favor, inténtalo de nuevo') 
+export const validateErrorResponse: Response = setResponse(400, 'Error 400. Validación incorrecta')
 
+//auth msg
 export const successAuthResponse: Response = setResponse(201, 'Credencial exitosa')
-export const failureAuthResponse: Response = setResponse(401, '401 Credencial incorrecta')
+export const authErrorResponse: Response = setResponse(401, 'Error 401. Credencial incorrecta')
+export const tokenErrorResponse: Response = setResponse(401, 'Error 401. No autorizado')

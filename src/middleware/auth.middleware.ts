@@ -1,13 +1,15 @@
 import { NextFunction, Request, Response } from 'express'
 import { verify } from 'jsonwebtoken'
-import { failureAuthResponse } from '../utils/httpResponse'
+import { authErrorResponse, tokenErrorResponse, validateErrorResponse } from '../utils/httpResponse'
+import { Auth } from '../types/Auth'
 
 export const verifyToken = (req: Request, res: Response, next: NextFunction) => {
   try {
     const token = req.headers['authorization']
     
     if (!token) {
-      res.status(failureAuthResponse.status).send()
+      res.statusMessage = tokenErrorResponse.msg
+      res.status(tokenErrorResponse.status).send()
       return
     }
 
@@ -18,6 +20,18 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
       res.statusMessage = error.message
     }
 
-    res.status(failureAuthResponse.status).send()
+    res.status(authErrorResponse.status).send()
   }
 } 
+
+export const validateAuth = (req: Request, res: Response, next: NextFunction) => {
+  const auth = req.body as Auth
+
+  if (!auth.credential) {
+    res.statusMessage = validateErrorResponse.msg
+    res.status(validateErrorResponse.status).send()    
+    return
+  }
+
+  next()
+}

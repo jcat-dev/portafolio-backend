@@ -1,5 +1,5 @@
 import { Request, Response } from 'express'
-import { ContactForm } from '../types/ContactForm'
+import { Email } from '../types/Email'
 import { serverErrorResponse } from '../utils/httpResponse'
 import nodemailer from 'nodemailer'
 
@@ -9,7 +9,7 @@ const postEmail = async (req: Request, res: Response) => {
       text,
       email,
       name
-    }: ContactForm = req.body
+    }: Email = req.body
 
     const transporter = nodemailer.createTransport({
       host: process.env.EMAIL_HOST,

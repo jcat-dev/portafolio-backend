@@ -5,9 +5,9 @@ import { setFetch } from '../utils/fetch'
 const PROFILE_API = process.env.API + 'profile/'
 const AUTH_API = process.env.API + 'auth'
 const newProfileEmpty = {
+  title: '',
   stackTitle: '',
   description: '',
-  photoUrl: '',
   fullName: ''
 }
 

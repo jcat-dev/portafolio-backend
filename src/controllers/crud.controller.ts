@@ -8,8 +8,7 @@ export const createData = async <T>(data: object, model: Model<T>, res: Response
     res.status(createdResponse.status).json({msg: createdResponse.msg})
 
   } catch (error) {
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }
 
@@ -19,8 +18,7 @@ export const findData = async <T>(model: Model<T>, res: Response) => {
     res.status(successResponse.status).json({msg: successResponse.msg, data})
 
   } catch (error) {
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }
 
@@ -29,21 +27,18 @@ export const findDataById = async <T>(id: string, model: Model<T>, res: Response
     const result = await model.findById(id).exec()
 
     if (!result) {
-      res.statusMessage = idNotFoundResponse.msg
-      res.status(idNotFoundResponse.status).send()
+      res.status(idNotFoundResponse.status).send(idNotFoundResponse.msg)
       return
     }
 
     res.status(successResponse.status).json({msg: successResponse.msg, data: result})
   } catch (error) {
     if (error instanceof Error && error.message.includes('ObjectId')){
-      res.statusMessage = idErrorResponse.msg
-      res.status(idErrorResponse.status).send()
+      res.status(idErrorResponse.status).send(idErrorResponse.msg)
       return
     }
 
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }
 
@@ -52,22 +47,18 @@ export const deleteDataById = async <T>(id: string, model: Model<T>, res: Respon
     const result = await model.findByIdAndDelete(id)
 
     if (!result) {
-      res.statusMessage = idNotFoundResponse.msg
-      res.status(idNotFoundResponse.status).send()
+      res.status(idNotFoundResponse.status).send(idNotFoundResponse.msg)
       return
     }
 
-    res.statusMessage = deletedResponse.msg
-    res.status(deletedResponse.status).send()
+    res.status(deletedResponse.status).send(deletedResponse.msg)
   } catch (error) {
     if (error instanceof Error && error.message.includes('ObjectId')){
-      res.statusMessage = idErrorResponse.msg
-      res.status(idErrorResponse.status).send()
+      res.status(idErrorResponse.status).send(idErrorResponse.msg)
       return
     }
 
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }
 
@@ -76,33 +67,27 @@ export const updateDataById = async <T>(id: string, update: object, model: Model
     const result = await model.findByIdAndUpdate(id, update)
 
     if (!result) {
-      res.statusMessage = idNotFoundResponse.msg
-      res.status(idNotFoundResponse.status).send()
+      res.status(idNotFoundResponse.status).send(idNotFoundResponse.msg)
       return
     }
 
-    res.statusMessage = updatedResponse.msg
-    res.status(updatedResponse.status).send()
+    res.status(updatedResponse.status).send(updatedResponse.msg)
   } catch (error) {
     if (error instanceof Error && error.message.includes('ObjectId')){
-      res.statusMessage = idErrorResponse.msg
-      res.status(idErrorResponse.status).send()
+      res.status(idErrorResponse.status).send(idErrorResponse.msg)
       return
     }
 
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 } 
 
 export const replaceFirstData = async <T>(res: Response, model: Model<T>, data: object) => {
   try {
     await model.replaceOne({}, data, { upsert: true })
-    res.statusMessage = updatedResponse.msg
-    res.status(updatedResponse.status).send()
+    res.status(updatedResponse.status).send(updatedResponse.msg)
 
   } catch (error) {
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }

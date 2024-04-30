@@ -8,19 +8,20 @@ export const verifyToken = (req: Request, res: Response, next: NextFunction) => 
     const token = req.headers['authorization']
     
     if (!token) {
-      res.statusMessage = tokenErrorResponse.msg
-      res.status(tokenErrorResponse.status).send()
+      res.status(tokenErrorResponse.status).send(tokenErrorResponse.msg)
       return
     }
 
     verify(token.slice(7), String(process.env.PRIVATE_KEY))
     next()
   } catch (error) {
+    let msg
+
     if (error instanceof Error) {
-      res.statusMessage = error.message
+      msg = error.message
     }
 
-    res.status(authErrorResponse.status).send()
+    res.status(authErrorResponse.status).send(msg)
   }
 } 
 
@@ -28,8 +29,7 @@ export const validateAuth = (req: Request, res: Response, next: NextFunction) =>
   const auth = req.body as Auth
 
   if (!auth.credential) {
-    res.statusMessage = validateErrorResponse.msg
-    res.status(validateErrorResponse.status).send()    
+    res.status(validateErrorResponse.status).send(validateErrorResponse.msg)    
     return
   }
 

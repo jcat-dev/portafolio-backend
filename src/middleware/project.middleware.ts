@@ -22,7 +22,6 @@ export const validateProject = (req: Request, res: Response, next: NextFunction)
 
     next()
   } catch (error) {
-    res.statusMessage = validateErrorResponse.msg
-    res.status(validateErrorResponse.status).send()
+    res.status(validateErrorResponse.status).send(validateErrorResponse.msg)
   }  
 }

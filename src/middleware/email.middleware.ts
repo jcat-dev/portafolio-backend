@@ -9,8 +9,7 @@ export const validateEmail = (req: Request, res: Response, next: NextFunction) =
   const isNotEmail = firstIndex === 0 || lastIndex === (email.email.length - 1)
   
   if (!email.name || !email.text || isNotEmail) {
-    res.statusMessage = validateErrorResponse.msg
-    res.status(validateErrorResponse.status).send()    
+    res.status(validateErrorResponse.status).send(validateErrorResponse.msg)    
     return
   }
 

@@ -34,8 +34,7 @@ const postEmail = async (req: Request, res: Response) => {
 
     res.status(201).json({msg: 'Mensaje enviado exitosamente'})
   } catch (error) {
-    res.statusMessage = serverErrorResponse.msg
-    res.status(serverErrorResponse.status).send()
+    res.status(serverErrorResponse.status).send(serverErrorResponse.msg)
   }
 }
 

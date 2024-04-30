@@ -12,6 +12,5 @@ export const checkCredential = (req: Request, res: Response) => {
     return
   }
   
-  res.statusMessage = authErrorResponse.msg
-  res.status(authErrorResponse.status).send()
+  res.status(authErrorResponse.status).send(authErrorResponse.msg)
 }

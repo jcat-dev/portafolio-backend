@@ -6,8 +6,7 @@ export const validateProfile = (req: Request, res: Response, next: NextFunction)
   const profile = req.body as Profile
   
   if (!profile.description || !profile.fullName || !profile.stackTitle || !profile.title) {
-    res.statusMessage = validateErrorResponse.msg
-    res.status(validateErrorResponse.status).send()    
+    res.status(validateErrorResponse.status).send(validateErrorResponse.msg)    
     return
   }
 

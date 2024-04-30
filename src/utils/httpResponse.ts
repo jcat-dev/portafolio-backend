@@ -10,8 +10,8 @@ const setResponse = (status: number, msg: string) => {
 //http method msg
 export const successResponse: Response = setResponse(200, 'Solicitud exitosa')
 export const createdResponse: Response = setResponse(201, 'Recurso creado exitosamente')
-export const updatedResponse: Response = setResponse(204, 'Actualización exitosa')
-export const deletedResponse: Response = setResponse(204, 'Eliminación exitosa')
+export const updatedResponse: Response = setResponse(200, 'Actualización exitosa')
+export const deletedResponse: Response = setResponse(200, 'Eliminación exitosa')
 export const idErrorResponse: Response = setResponse(400, 'Error 400. ID incorrecta')
 export const idNotFoundResponse: Response = setResponse(400, 'Error 400. ID no encontrado')
 

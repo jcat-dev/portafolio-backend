@@ -1,14 +1,17 @@
 import { NextFunction, Request, Response } from 'express'
 import { Email } from '../types/Email'
-import { validateErrorResponse } from '../utils/httpResponse'
+import { valueErrorResponse, validateErrorResponse } from '../utils/httpResponse'
+import { validateEMAIL } from '../utils/validate'
 
 export const validateEmail = (req: Request, res: Response, next: NextFunction) => {
   const email = req.body as Email
-  const firstIndex = email.email.indexOf('@')
-  const lastIndex = email.email.lastIndexOf('@')
-  const isNotEmail = firstIndex === 0 || lastIndex === (email.email.length - 1)
-  
-  if (!email.name || !email.text || isNotEmail) {
+
+  if (!email || Object.keys(email).length === 0) {
+    res.status(valueErrorResponse.status).send(valueErrorResponse.msg)    
+    return
+  }
+
+  if (!email.name || !email.text || !email.email || !validateEMAIL(email.email)) {
     res.status(validateErrorResponse.status).send(validateErrorResponse.msg)    
     return
   }

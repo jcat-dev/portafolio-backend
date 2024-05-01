@@ -19,6 +19,7 @@ export const idNotFoundResponse: Response = setResponse(400, 'Error 400. ID no e
 export const notFoundResponse: Response = setResponse(404,'Error 404. Recurso no encontrado') 
 export const serverErrorResponse: Response = setResponse(500, 'Error 500. Por favor, inténtalo de nuevo') 
 export const validateErrorResponse: Response = setResponse(400, 'Error 400. Validación incorrecta')
+export const valueErrorResponse: Response = setResponse(400, 'Error 400. Cuerpo vacío')
 
 //auth msg
 export const successAuthResponse: Response = setResponse(201, 'Credencial exitosa')

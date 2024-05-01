@@ -1,23 +1,22 @@
 import { NextFunction, Request, Response } from 'express'
 import { Project } from '../types/Project'
-import { validateErrorResponse } from '../utils/httpResponse'
-import { validateURL } from '../utils/validateURL'
+import { validateErrorResponse, valueErrorResponse } from '../utils/httpResponse'
+import { validateURL } from '../utils/validate'
 
 export const validateProject = (req: Request, res: Response, next: NextFunction) => {
-  try {
-    const {
-      description,
-      pageImgURL,
-      pageURL,
-      projectTitle,
-      repositoryURL,
-      stackTitle,
-      stackType
-    } = req.body as Project
-    const noEmptly = stackType.every((value) => value.title && (value.skills.length > 0) && !value.skills.includes(''))
+  try {      
+    const project = req.body as Project
 
-    if (!description || !projectTitle || !stackTitle) throw Error
-    if (!validateURL(pageImgURL) || !validateURL(pageURL) || !validateURL(repositoryURL)) throw Error
+    if (!project || Object.keys(project).length === 0) {
+      res.status(valueErrorResponse.status).send(valueErrorResponse.msg)
+      return
+    }
+
+    if (!project.description || !project.projectTitle || !project.stackTitle) throw Error
+    if (!validateURL(project.pageImgURL) || !validateURL(project.pageURL) || !validateURL(project.repositoryURL)) throw Error
+    if (project.stackType.length === 0) throw Error
+
+    const noEmptly = project.stackType.every((value) => value.title && (value.skills.length > 0) && !value.skills.includes(''))
     if (!noEmptly) throw Error
 
     next()

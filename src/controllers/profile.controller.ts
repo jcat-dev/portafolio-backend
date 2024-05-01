@@ -6,6 +6,6 @@ export const getProfiles = (res: Response) => {
   return findData(ProfileModel, res)
 }
 
-export const postProfile = (req: Request, res: Response) => {
+export const updateProfile = (req: Request, res: Response) => {
   return replaceFirstData(res, ProfileModel, req.body)
 }
